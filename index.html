@@ -2,12 +2,37 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Cartinha do LAB36</title>
+  <title>PDF Editável LAB36</title>
+  <script src="https://acrobatservices.adobe.com/view-sdk/viewer.js"></script>
+  <style>
+    body { margin: 0; height: 100vh; display: flex; flex-direction: column; }
+    #adobe-dc-view { flex: 1; }
+  </style>
 </head>
 <body>
-  <h1>Editor LAB36</h1>
-  <p>O PDF está disponível aqui:</p>
-  <a href="Cartinha-do-LAB36.pdf" target="_blank">Abrir PDF</a>
+  <div id="adobe-dc-view"></div>
+
+  <script>
+    document.addEventListener("adobe_dc_view_sdk.ready", function() {
+      var adobeDCView = new AdobeDC.View({
+        clientId: "e8ac91d5cc67492eb50d564a968a5aa9", // sua API key
+        divId: "adobe-dc-view"
+      });
+
+      adobeDCView.previewFile({
+        content: {
+          location: {
+            url: "https://frame36.github.io/Cartinha-do-Lab36/Cartinha-do-Lab36.pdf" 
+          }
+        },
+        metaData: { fileName: "Cartinha-do-Lab36.pdf" }
+      }, {
+        embedMode: "FULL_WINDOW",
+        showDownloadPDF: true,
+        showPrintPDF: true,
+        enableAnnotationAPIs: true // ativa ferramentas de anotação/fill & sign
+      });
+    });
+  </script>
 </body>
 </html>
-
