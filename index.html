@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PDF Editável LAB36</title>
+  <title>Cartinha LAB36 - PDF Editável</title>
   <script src="https://acrobatservices.adobe.com/view-sdk/viewer.js"></script>
   <style>
     body { margin: 0; height: 100vh; display: flex; flex-direction: column; }
@@ -15,22 +15,29 @@
   <script>
     document.addEventListener("adobe_dc_view_sdk.ready", function() {
       var adobeDCView = new AdobeDC.View({
-        clientId: "e8ac91d5cc67492eb50d564a968a5aa9", // sua API key
+        clientId: "e8ac91d5cc67492eb50d564a968a5aa9", // sua chave da Adobe
         divId: "adobe-dc-view"
       });
 
       adobeDCView.previewFile({
         content: {
           location: {
-            url: "https://frame36.github.io/Cartinha-do-Lab36/Cartinha-do-Lab36.pdf" 
+            url: "https://frame36.github.io/Cartinha-do-Lab36/Cartinha.pdf"
           }
         },
-        metaData: { fileName: "Cartinha-do-Lab36.pdf" }
+        metaData: { fileName: "Cartinha.pdf" }
       }, {
         embedMode: "FULL_WINDOW",
         showDownloadPDF: true,
         showPrintPDF: true,
-        enableAnnotationAPIs: true // ativa ferramentas de anotação/fill & sign
+        enableAnnotationAPIs: true
+      }).then(() => {
+        // Ativa Fill & Sign automaticamente
+        adobeDCView.enableAnnotationMode({
+          enableForms: true,
+          enableSign: true,
+          enableText: true
+        });
       });
     });
   </script>
